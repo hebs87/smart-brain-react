@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import Particles from "react-particles-js";
 import Clarifai from 'clarifai';
 import Navigation from "./components/Navigation/Navigation";
+import Login from "./components/Login/Login";
 import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
@@ -32,6 +33,7 @@ class App extends Component {
       input: '',
       imageUrl: '',
       boxes: [],
+      isLogin: true,
     }
   }
 
@@ -66,8 +68,12 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
+  onRouteChange = (value) => {
+    this.setState({isLogin: value});
+  }
+
   render() {
-    const {imageUrl, boxes} = this.state;
+    const {imageUrl, boxes, isLogin} = this.state;
 
     return (
       <div className="App">
@@ -75,14 +81,23 @@ class App extends Component {
           className='particles'
           params={particleOptions}
         />
-        <Navigation/>
-        <Logo/>
-        <Rank/>
-        <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onSubmit={this.onSubmit}
-        />
-        <FaceRecognition imageUrl={imageUrl} boxes={boxes}/>
+        <Navigation onRouteChange={this.onRouteChange}/>
+        {
+          isLogin &&
+          <Login onRouteChange={this.onRouteChange}/>
+        }
+        {
+          !isLogin &&
+          <Fragment>
+            <Logo/>
+            <Rank/>
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onSubmit={this.onSubmit}
+            />
+            <FaceRecognition imageUrl={imageUrl} boxes={boxes}/>
+          </Fragment>
+        }
       </div>
     );
   }
