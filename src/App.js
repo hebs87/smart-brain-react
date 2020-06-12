@@ -41,11 +41,15 @@ class App extends Component {
 
   calculateFaceLocation = data => {
     const clarifaiFaces = data.outputs[0].data.regions.map(
+      // Return an array of bounding_box objects
       face => face.region_info.bounding_box
     )
+    // Get the image dimensions
     const image = document.getElementById('input_image');
     const width = Number(image.width);
     const height = Number(image.height);
+    // Map over clarifaiFaces array and create new array of objects with dimensions as box
+    // points values - 1 box per face
     const boxes = clarifaiFaces.map(
       (clarifaiFace, index) => ({
         id: index,
@@ -55,6 +59,7 @@ class App extends Component {
         bottomRow: height - (clarifaiFace.bottom_row * height),
       })
     )
+
     this.setState({boxes});
   }
 
