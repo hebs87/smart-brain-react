@@ -2,7 +2,8 @@ import React, {Component, Fragment} from 'react';
 import Particles from "react-particles-js";
 import Clarifai from 'clarifai';
 import Navigation from "./components/Navigation/Navigation";
-import Signin from "./components/Signin/Login";
+import Signup from "./components/Signup/Signup";
+import Signin from "./components/Signin/Signin";
 import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
@@ -33,7 +34,7 @@ class App extends Component {
       input: '',
       imageUrl: '',
       boxes: [],
-      isLogin: true,
+      route: 'signin',
     }
   }
 
@@ -68,12 +69,12 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  onRouteChange = (value) => {
-    this.setState({isLogin: value});
+  onRouteChange = (route) => {
+    this.setState({route});
   }
 
   render() {
-    const {imageUrl, boxes, isLogin} = this.state;
+    const {imageUrl, boxes, route} = this.state;
 
     return (
       <div className="App">
@@ -83,11 +84,15 @@ class App extends Component {
         />
         <Navigation onRouteChange={this.onRouteChange}/>
         {
-          isLogin &&
+          route === 'signin' &&
           <Signin onRouteChange={this.onRouteChange}/>
         }
         {
-          !isLogin &&
+          route === 'signup' &&
+          <Signup onRouteChange={this.onRouteChange}/>
+        }
+        {
+          route === 'home' &&
           <Fragment>
             <Logo/>
             <Rank/>
