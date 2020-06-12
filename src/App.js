@@ -35,6 +35,7 @@ class App extends Component {
       imageUrl: '',
       boxes: [],
       route: 'signin',
+      isSignedIn: false,
     }
   }
 
@@ -70,11 +71,11 @@ class App extends Component {
   }
 
   onRouteChange = (route) => {
-    this.setState({route});
+    this.setState({route, isSignedIn: route === 'home'});
   }
 
   render() {
-    const {imageUrl, boxes, route} = this.state;
+    const {imageUrl, boxes, route, isSignedIn} = this.state;
 
     return (
       <div className="App">
@@ -82,7 +83,7 @@ class App extends Component {
           className='particles'
           params={particleOptions}
         />
-        <Navigation onRouteChange={this.onRouteChange}/>
+        <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn}/>
         {
           route === 'signin' &&
           <Signin onRouteChange={this.onRouteChange}/>
