@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import Particles from "react-particles-js";
 import Clarifai from 'clarifai';
 import Navigation from "./components/Navigation/Navigation";
-import Login from "./components/Login/Login";
+import Signin from "./components/Signin/Login";
 import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
@@ -84,7 +84,7 @@ class App extends Component {
         <Navigation onRouteChange={this.onRouteChange}/>
         {
           isLogin &&
-          <Login onRouteChange={this.onRouteChange}/>
+          <Signin onRouteChange={this.onRouteChange}/>
         }
         {
           !isLogin &&
