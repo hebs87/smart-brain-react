@@ -36,7 +36,20 @@ class App extends Component {
       boxes: [],
       route: 'signin',
       isSignedIn: false,
+      user: {},
     }
+  }
+
+  loadUser = (user) => {
+    let id = Number(user.id), name = user.name, email = user.email,
+      entries = Number(user.entries), joined = new Date(user.joined);
+    this.setState({
+      user: {
+        id, name, email, entries, joined
+      }
+    },
+      () => console.log(this.state.user)
+    );
   }
 
   calculateFaceLocation = data => {
@@ -95,7 +108,7 @@ class App extends Component {
         }
         {
           route === 'signup' &&
-          <Signup onRouteChange={this.onRouteChange}/>
+          <Signup onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
         }
         {
           route === 'home' &&
