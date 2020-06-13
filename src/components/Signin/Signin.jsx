@@ -28,11 +28,12 @@ class Signin extends Component {
       })
     })
       .then(res => res.json())
-      .then(data => {
-        if (data === 'Success') {
-          this.props.onRouteChange('home')
+      .then(user => {
+        if (user.id) {
+          this.props.loadUser(user);
+          this.props.onRouteChange('home');
         } else {
-          alert('Those details didn\'t match, please try again!')
+          alert('Those details didn\'t match, please try again!');
         }
       })
       .catch(err => console.log(err))
