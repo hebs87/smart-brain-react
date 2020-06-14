@@ -25,7 +25,7 @@ class Signup extends Component {
 
   onSubmit = () => {
     if (this.state.name && this.state.email && this.state.password) {
-      fetch('http://localhost:5000/signup', {
+      fetch(`${process.env.REACT_APP_URL}/signup`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
