@@ -98,6 +98,7 @@ class App extends Component {
               let entries = Number(count);
               this.setState(Object.assign(this.state.user, {entries}))
             })
+            .catch(console.log);
         }
         this.calculateFaceLocation(response)
       })
