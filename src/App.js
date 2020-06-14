@@ -47,9 +47,7 @@ class App extends Component {
       user: {
         id, name, email, entries, joined
       }
-    },
-      () => console.log(this.state.user)
-    );
+    });
   }
 
   calculateFaceLocation = data => {
