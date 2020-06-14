@@ -35,11 +35,17 @@ class Signup extends Component {
         })
       })
         .then(res => res.json())
-        .then(user => this.props.loadUser(user))
-        .then(() => this.props.onRouteChange('home'))
+        .then(user => {
+          if (user.id) {
+            this.props.loadUser(user);
+            this.props.onRouteChange('home');
+          } else {
+            alert('Something went wrong, please try again!');
+          }
+        })
         .catch(err => console.log(err))
     } else {
-      alert('Something went wrong, please try again!')
+      alert('Something went wrong, please try again!');
     }
   }
 
