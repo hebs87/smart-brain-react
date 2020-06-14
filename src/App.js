@@ -26,18 +26,20 @@ const particleOptions = {
   }
 }
 
+const initialState = {
+  input: '',
+  imageUrl: '',
+  boxes: [],
+  route: 'signin',
+  isSignedIn: false,
+  user: {},
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      input: '',
-      imageUrl: '',
-      boxes: [],
-      route: 'signin',
-      isSignedIn: false,
-      user: {},
-    }
+    this.state = initialState;
   }
 
   loadUser = (user) => {
@@ -103,7 +105,9 @@ class App extends Component {
   }
 
   onRouteChange = (route) => {
-    this.setState({route, isSignedIn: route === 'home'});
+    this.setState({route, isSignedIn: route === 'home'},
+      () => route === 'signin' ? this.setState(initialState) : null
+    );
   }
 
   render() {
