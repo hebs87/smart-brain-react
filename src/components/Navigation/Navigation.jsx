@@ -1,4 +1,5 @@
 import React, {Fragment} from "react";
+import ProfileIcon from "../Profile/ProfileIcon";
 
 const Navigation = ({onRouteChange, isSignedIn}) => {
   return (
@@ -6,12 +7,9 @@ const Navigation = ({onRouteChange, isSignedIn}) => {
       {
         isSignedIn &&
         <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
-          <p
-            onClick={() => onRouteChange('signin')}
-            className='f3 link dim black underline pa3 pointer'
-          >
-            Sign Out
-          </p>
+          <ProfileIcon
+            onRouteChange={onRouteChange}
+          />
         </nav>
       }
       {

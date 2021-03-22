@@ -32,7 +32,13 @@ const initialState = {
   boxes: [],
   route: 'signin',
   isSignedIn: false,
-  user: {},
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: '',
+  },
 }
 
 class App extends Component {
@@ -106,9 +112,12 @@ class App extends Component {
   }
 
   onRouteChange = (route) => {
-    this.setState({route, isSignedIn: route === 'home'},
-      () => route === 'signin' ? this.setState(initialState) : null
-    );
+    if (route === 'signout') {
+      return this.setState(initialState);
+    } else if (route === 'home') {
+      this.setState({isSignedIn: true});
+    }
+    this.setState({route});
   }
 
   render() {
@@ -122,7 +131,7 @@ class App extends Component {
         />
         <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn}/>
         {
-          route === 'signin' &&
+          (route === 'signin' || route === 'signout') &&
           <Signin onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
         }
         {
