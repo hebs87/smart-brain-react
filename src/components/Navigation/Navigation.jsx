@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import ProfileIcon from "../Profile/ProfileIcon";
 
-const Navigation = ({onRouteChange, isSignedIn}) => {
+const Navigation = ({onRouteChange, isSignedIn, toggleModal}) => {
   return (
     <Fragment>
       {
@@ -9,6 +9,7 @@ const Navigation = ({onRouteChange, isSignedIn}) => {
         <nav style={{display: 'flex', justifyContent: 'flex-end'}}>
           <ProfileIcon
             onRouteChange={onRouteChange}
+            toggleModal={toggleModal}
           />
         </nav>
       }

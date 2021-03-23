@@ -8,6 +8,8 @@ import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
+import Modal from "./components/Modal/Modal";
+import Profile from "./components/Profile/Profile"
 import './App.css';
 
 const app = new Clarifai.App({
@@ -32,6 +34,7 @@ const initialState = {
   boxes: [],
   route: 'signin',
   isSignedIn: false,
+  isProfileOpen: false,
   user: {
     id: '',
     name: '',
@@ -120,8 +123,15 @@ class App extends Component {
     this.setState({route});
   }
 
+  toggleModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      isProfileOpen: !prevState.isProfileOpen
+    }));
+  }
+
   render() {
-    const {imageUrl, boxes, route, isSignedIn} = this.state;
+    const {imageUrl, boxes, route, isSignedIn, isProfileOpen} = this.state;
 
     return (
       <div className="App">
@@ -129,7 +139,20 @@ class App extends Component {
           className='particles'
           params={particleOptions}
         />
-        <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn}/>
+        <Navigation
+          onRouteChange={this.onRouteChange}
+          isSignedIn={isSignedIn}
+          toggleModal={this.toggleModal}
+        />
+        {
+          isProfileOpen &&
+          <Modal>
+            <Profile
+              isProfileOpen={isProfileOpen}
+              toggleModal={this.toggleModal}
+            />
+          </Modal>
+        }
         {
           (route === 'signin' || route === 'signout') &&
           <Signin onRouteChange={this.onRouteChange} loadUser={this.loadUser}/>
