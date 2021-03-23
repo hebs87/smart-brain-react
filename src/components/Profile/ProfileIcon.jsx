@@ -29,7 +29,9 @@ class ProfileIcon extends Component {
           >
             <img
               src="http://tachyons.io/img/logo.jpg"
-              className="br-100 ba h3 w3 dib" alt="avatar"/>
+              className="br-100 ba h3 w3 dib"
+              alt="avatar"
+            />
           </DropdownToggle>
           <DropdownMenu
             right
