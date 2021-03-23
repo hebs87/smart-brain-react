@@ -1,8 +1,8 @@
 import React from "react";
 import "./Profile.css";
-import {DropdownToggle} from "reactstrap";
 
-const Profile = ({isProfileOpen, toggleModal}) => {
+const Profile = ({isProfileOpen, toggleModal, user}) => {
+  const {name, entries, joined, age, pet} = user;
   return (
     <div
       className="profile-modal"
@@ -15,19 +15,19 @@ const Profile = ({isProfileOpen, toggleModal}) => {
             alt="avatar"
           />
           <h1>
-            John Doe
+            {name}
           </h1>
           <h4>
-            Images Submitted: 5
+            {`Images Submitted: ${entries}`}
           </h4>
           <p>
-            Member Since: January
+            {`Member Since: ${new Date(joined).toLocaleDateString()}`}
           </p>
           <hr/>
           <label className="mt2 fw6" htmlFor="user-name">Name:</label>
           <input
             className="pa2 ba w-100"
-            placeholder="John"
+            placeholder={name}
             type="text"
             name="user-name"
             id="name"
@@ -35,7 +35,7 @@ const Profile = ({isProfileOpen, toggleModal}) => {
           <label className="mt2 fw6" htmlFor="user-age">Age:</label>
           <input
             className="pa2 ba w-100"
-            placeholder="56"
+            placeholder={age}
             type="text"
             name="user-age"
             id="age"
@@ -43,7 +43,7 @@ const Profile = ({isProfileOpen, toggleModal}) => {
           <label className="mt2 fw6" htmlFor="user-name">Pet:</label>
           <input
             className="pa2 ba w-100"
-            placeholder="Dragon"
+            placeholder={pet}
             type="text"
             name="user-pet"
             id="pet"

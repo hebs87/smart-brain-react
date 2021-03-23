@@ -41,6 +41,8 @@ const initialState = {
     email: '',
     entries: 0,
     joined: '',
+    pet: '',
+    age: ''
   },
 }
 
@@ -131,7 +133,7 @@ class App extends Component {
   }
 
   render() {
-    const {imageUrl, boxes, route, isSignedIn, isProfileOpen} = this.state;
+    const {imageUrl, boxes, route, isSignedIn, isProfileOpen, user} = this.state;
 
     return (
       <div className="App">
@@ -150,6 +152,7 @@ class App extends Component {
             <Profile
               isProfileOpen={isProfileOpen}
               toggleModal={this.toggleModal}
+              user={user}
             />
           </Modal>
         }
