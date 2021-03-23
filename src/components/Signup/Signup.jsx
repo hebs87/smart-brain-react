@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import './Signup.css';
 
 class Signup extends Component {
   constructor(props) {
@@ -61,7 +62,7 @@ class Signup extends Component {
                 <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
                 <input
                   onChange={this.onNameChange}
-                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  className="pa2 input-reset ba bg-transparent hover-white w-100 hover-black"
                   type="text"
                   name="name"
                   id="name"
@@ -71,7 +72,7 @@ class Signup extends Component {
                 <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
                 <input
                   onChange={this.onEmailChange}
-                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  className="pa2 input-reset ba bg-transparent hover-white w-100 hover-black"
                   type="email"
                   name="email-address"
                   id="email-address"
@@ -81,7 +82,7 @@ class Signup extends Component {
                 <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
                 <input
                   onChange={this.onPasswordChange}
-                  className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  className="b pa2 input-reset ba bg-transparent hover-white w-100 hover-black"
                   type="password"
                   name="password"
                   id="password"
