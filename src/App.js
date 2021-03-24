@@ -99,6 +99,7 @@ class App extends Component {
   }
 
   calculateFaceLocation = data => {
+    if (!data || !data.outputs) return;
     const clarifaiFaces = data.outputs[0].data.regions.map(
       // Return an array of bounding_box objects
       face => face.region_info.bounding_box
@@ -128,13 +129,17 @@ class App extends Component {
 
   onSubmit = () => {
     this.setState({imageUrl: this.state.input});
+    const token = window.localStorage.getItem('token');
     app.models
       .predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
       .then(response => {
         if (response) {
           fetch(`${process.env.REACT_APP_URL}/image`, {
             method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({
               id: this.state.user.id
             })
