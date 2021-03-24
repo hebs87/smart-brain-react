@@ -29,14 +29,21 @@ class Profile extends Component {
   }
 
   onProfileUpdate = (data) => {
+    const token = window.localStorage.getItem('token');
     fetch(`${process.env.REACT_APP_URL}/profile/${this.props.user.id}`, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify({formInput: data})
     })
       .then(res => {
-        this.props.toggleModal();
-        this.props.loadUser({...this.props.user, ...data})
+        // If success or cache success response
+        if (res.status === 200 || res.status === 304) {
+          this.props.toggleModal();
+          this.props.loadUser({...this.props.user, ...data})
+        }
       })
       .catch(err => console.log(err));
   }
