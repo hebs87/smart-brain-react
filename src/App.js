@@ -55,10 +55,11 @@ class App extends Component {
 
   loadUser = (user) => {
     let id = Number(user.id), name = user.name, email = user.email,
-      entries = Number(user.entries), joined = new Date(user.joined);
+      entries = Number(user.entries), joined = new Date(user.joined),
+      pet = user.pet, age = user.age ? Number(user.age) : '';
     this.setState({
       user: {
-        id, name, email, entries, joined
+        id, name, email, entries, joined, pet, age
       }
     });
   }
