@@ -19,6 +19,10 @@ class Signin extends Component {
     this.setState({password: event.target.value});
   }
 
+  saveAuthTokenSession = (token) => {
+    window.localStorage.setItem('token', token);
+  }
+
   onSubmit = () => {
     fetch(`${process.env.REACT_APP_URL}/signin`, {
       method: 'POST',
@@ -30,11 +34,28 @@ class Signin extends Component {
     })
       .then(res => res.json())
       .then(data => {
-        if (data.userId) {
-          this.props.loadUser(data);
-          this.props.onRouteChange('home');
-        } else {
-          alert('Those details didn\'t match, please try again!');
+        if (data && data.userId) {
+          const {success, userId, token} = data;
+          if (success === 'true' && userId) {
+            this.saveAuthTokenSession(token);
+            fetch(`${process.env.REACT_APP_URL}/profile/${userId}`, {
+              method: 'get',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              }
+            })
+              .then(res => res.json())
+              .then(user => {
+                if (user && user.email) {
+                  this.props.loadUser(user);
+                  this.props.onRouteChange('home');
+                }
+              })
+              .catch(console.log);
+          } else {
+            alert('Those details didn\'t match, please try again!');
+          }
         }
       })
       .catch(err => console.log(err))

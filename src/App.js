@@ -53,6 +53,40 @@ class App extends Component {
     this.state = initialState;
   }
 
+  componentDidMount() {
+    // Check if there is a token and sign user in if so
+    const token = window.localStorage.getItem('token');
+    if (token) {
+      fetch(`${process.env.REACT_APP_URL}/signin`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.userId) {
+            fetch(`${process.env.REACT_APP_URL}/profile/${data.userId}`, {
+              method: 'get',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+              }
+            })
+              .then(res => res.json())
+              .then(user => {
+                if (user && user.email) {
+                  this.loadUser(user);
+                  this.onRouteChange('home');
+                }
+              })
+          }
+        })
+        .catch(console.log);
+    }
+  }
+
   loadUser = (user) => {
     let id = Number(user.id), name = user.name, email = user.email,
       entries = Number(user.entries), joined = new Date(user.joined),
