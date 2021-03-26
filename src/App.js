@@ -209,7 +209,10 @@ class App extends Component {
           route === 'home' &&
           <Fragment>
             <Logo/>
-            <Rank user={this.state.user}/>
+            <Rank
+              name={this.state.user.name}
+              entries={this.state.user.entries}
+            />
             <ImageLinkForm
               onInputChange={this.onInputChange}
               onSubmit={this.onSubmit}
